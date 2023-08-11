@@ -1,40 +1,47 @@
 public class Solution {
 
-    char[] symbols = new char[] { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-    int[] values = new int[] { 1, 5, 10, 50, 100, 500, 1000 };
-
     public int romanToInt(String s) {
-        
-        int value = 0;
 
+        int returnValue = 0;
+        short nextVal = 0;
+        short curVal = 0;
         for (int index = 0; index < s.length(); index++) {
-            char currentChar = s.charAt(index);
-            int currentCharIndex = indexOf(currentChar);
-            if ((index + 1) < s.length()) {
-                char nextChar = s.charAt(index + 1);
-                int nextCharIndex = indexOf(nextChar);
-                if (nextCharIndex > currentCharIndex) {
-                    int addVal = -values[currentCharIndex];
-                    value += addVal;
-                } else {
-                    value += values[currentCharIndex];
-                }
-            } 
-            else {
-                value += values[currentCharIndex];
-            }
-        }
-        
-        return value;
-    }
+            curVal = getRomanValue(s.charAt(index));
+            if (index + 1 < s.length()) {
+                nextVal = getRomanValue(s.charAt(index + 1));
 
-    public int indexOf(char val) {
-        for (int index = 0; index < symbols.length; index++) {
-            if (symbols[index] == val) {
-                return index;
+                if (nextVal > curVal) {
+                    returnValue -= curVal;
+                } else {
+                    returnValue += curVal;
+                }
+            } else {
+                returnValue += curVal;
             }
         }
-        return 0;
+
+        return returnValue;
+    }
+    
+    public short getRomanValue(char val) {
+        switch (val) {
+                case 'M':
+                    return 1000;
+                case 'D':
+                    return 500;
+                case 'C':
+                    return 100;
+                case 'L':
+                    return 50;
+                case 'X':
+                    return 10;
+                case 'V':
+                    return 5;
+                case 'I':
+                    return 1;
+                default:
+                    return 0;
+            }
     }
 
 
