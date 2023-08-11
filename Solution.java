@@ -5,6 +5,7 @@ public class Solution {
         int returnValue = 0;
         short nextVal = 0;
         short curVal = 0;
+        
         for (int index = 0; index < s.length(); index++) {
             curVal = getRomanValue(s.charAt(index));
             if (index + 1 < s.length()) {
